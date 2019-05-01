@@ -1,0 +1,20 @@
+events {}
+
+http {
+	server {
+		listen 22029;
+		server_name http://host-1506757466.proxy.infralabs.cs.ui.ac.id;
+
+		location /upload {
+			proxy_set_header Host $host;
+			proxy_set_header X-Real-IP $remote_addr;
+			proxy_pass http://host-1506757466.proxy.infralabs.cs.ui.ac.id/;
+		}
+
+		location /download {
+			proxy_set_header Host $host;
+			proxy_set_header X-Real-IP $remote_addr;
+			proxy_pass http://host-1506757466.proxy.infralabs.cs.ui.ac.id/;
+		}
+	}
+}
