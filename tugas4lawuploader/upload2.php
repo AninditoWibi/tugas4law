@@ -7,22 +7,6 @@
 		move_uploaded_file( $_FILES['fileToUpload']['tmp_name'], $target_dir_withFile );
 		$uploadStatus = true;
 	}
-
-	$file = $_FILES["fileToUpload"];
-
-	$c = curl_init();
-	curl_setopt($c, CURLOPT_URL, "http://127.0.0.1:2000/Shared Storage/");
-	curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($c, CURLOPT_PUT, true);
-	curl_setopt($c, CURLOPT_INFILESIZE, filesize($file));
-
-	$fp = fopen($file, "r");
-	curl_setopt($c, CURLOPT_INFILE, $fp);
-
-	curl_exec($c);
-
-	curl_close($c);
-	fclose($fp); 
 ?>
 
 <html lang="en">
@@ -41,15 +25,28 @@
 		<div id="div1" style="margin-left: 30px;">
 			<h1>Tugas 4 LAW - Uploader Frontend</h1>
 			<p>
-				<!-- <?php
+				<?php
 					$target_dir_withFile = "Shared Storage/" . basename($_FILES["fileToUpload"]["name"]);
 					if (file_exists($target_dir_withFile)) {
 						echo "File uploaded successfully.";
 					} else {
 						echo "An error has occured.";
 					}
-				?> -->
-				Upload attempt initiated.
+				?>
+			</p>
+		</div>
+		<div id="div2" style="margin-left: 30px;">
+			<p> List of existing files in shared storage: <br><br>
+			<ul>
+			<?php
+				$target_dir = "Shared Storage/";
+				$listOfExistingFiles = array_diff(scandir($target_dir), array('..', '.'));
+				$listOfExistingFilenames = array_map('basename', $listOfExistingFiles);
+				foreach ($listOfExistingFilenames as $file) {
+					echo $file . '<br>';
+				}
+			?>
+			</ul>
 			</p>
 		</div>
 	</body>
