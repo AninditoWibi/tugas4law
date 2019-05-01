@@ -17,7 +17,7 @@
 				<p> List of existing files in shared storage (click on link to download corresponding file; requires HTML5 support): <br><br>
 				<ul>
 				<?php
-					$target_dir = ""; #????
+					$target_dir = "Shared Storage/"; #????
 					$listOfExistingFiles = array_diff(scandir($target_dir), array('..', '.'));
 					$listOfExistingFilenames = array_map('basename', $listOfExistingFiles);
 					foreach ($listOfExistingFilenames as $file) {
